@@ -3,347 +3,784 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rafi Jahin | Technology & Evaluation Specialist</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Ocean & Coral -->
-    <!-- Application Structure Plan: The SPA is a narrative journey starting with a "Key Metrics" dashboard. It flows into a new "My Approach" section, an interactive "Experience" section, and an expanded "Publications & Media" section. It concludes with a "Skills" chart and "Career Timeline". This structure provides a comprehensive, interactive, and evidence-based view of the candidate's profile, replacing the non-functional AI assistant with a more personal statement of professional philosophy. The new color scheme adds vibrancy. -->
-    <!-- Visualization & Content Choices: 
-        - My Approach (New Section): Goal: Inform/Connect -> Method: Iconography with text -> Interaction: None -> Justification: Replaces the AI tool with a personal mission statement, adding depth to the portfolio.
-        - Key Metrics (From CV achievements): Goal: Inform/Impress -> Method: Large number cards -> Interaction: Hover effects -> Justification: Highlights quantifiable impact upfront.
-        - Experience (CV work history): Goal: Organize/Inform -> Method: JS-powered Tabs -> Interaction: Click to reveal role details -> Justification: Prevents a wall of text and improves navigation.
-        - Publications & Media (From user's website): Goal: Provide Evidence -> Method: Grid of linked cards -> Interaction: Click to read external articles -> Justification: Offers concrete proof of expertise and public engagement.
-        - Technical Skills (From CV skills list): Goal: Compare/Inform -> Method: Chart.js Radar Chart -> Interaction: Hover tooltips -> Justification: Visually represents multi-faceted expertise.
-        - Career Path (From CV roles/dates): Goal: Show Change -> Method: HTML/CSS Timeline -> Interaction: None, purely visual -> Justification: Provides a clear, chronological story.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>CP10 Achievement by Theme - Detailed</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FFFBF5;
-            color: #3A506B;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
         }
-        .tab-active {
-            border-color: #FF6B6B;
-            color: #FF6B6B;
-            font-weight: 600;
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
         }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .chart-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+        
         .chart-container {
             position: relative;
+            height: 400px;
+        }
+        
+        .full-width-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .full-width-section h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+        
+        .theme-detail {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 6px solid;
+        }
+        
+        .theme-detail.srh {
+            border-left-color: #10b981;
+        }
+        
+        .theme-detail.ay {
+            border-left-color: #f59e0b;
+        }
+        
+        .theme-detail.gender {
+            border-left-color: #8b5cf6;
+        }
+        
+        .theme-detail.pd {
+            border-left-color: #3b82f6;
+        }
+        
+        .theme-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .theme-summary {
+            font-size: 0.9em;
+            color: #666;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        
+        .indicators-table {
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            border-collapse: collapse;
+            margin-top: 15px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+        
+        .indicators-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
-        .publication-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: white;
+        
+        .indicators-table th {
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9em;
+            font-weight: 600;
         }
-        .publication-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
+        
+        .indicators-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.9em;
+        }
+        
+        .indicators-table tbody tr {
+            background: white;
+            transition: background 0.2s;
+        }
+        
+        .indicators-table tbody tr:hover {
+            background: #f1f5f9;
+        }
+        
+        .indicator-type-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .indicator-type-badge.outcome {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .indicator-type-badge.output {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+        
+        .status-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+        }
+        
+        .status-pill.achieved {
+            background: #10b981;
+        }
+        
+        .status-pill.progress {
+            background: #f59e0b;
+        }
+        
+        .status-pill.not-achieved {
+            background: #ef4444;
+        }
+        
+        .achievement-value {
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #333;
+        }
+        
+        .target-info {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 3px;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid;
+        }
+        
+        .summary-card.total {
+            border-top-color: #667eea;
+        }
+        
+        .summary-card.achieved {
+            border-top-color: #10b981;
+        }
+        
+        .summary-card.progress {
+            border-top-color: #f59e0b;
+        }
+        
+        .summary-card.not-achieved {
+            border-top-color: #ef4444;
+        }
+        
+        .summary-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .legend-custom {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+        
+        .legend-text {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 500;
         }
     </style>
 </head>
-<body class="antialiased">
-
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        <header class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00A896] to-[#02C39A]">Rafi Jahin</h1>
-            <p class="mt-2 text-lg md:text-xl text-[#3A506B]">Technology & Evaluation Specialist | AI in Development</p>
-            <div class="mt-4 flex justify-center space-x-6 text-sm">
-                <a href="mailto:rafijahinn@gmail.com" class="text-gray-500 hover:text-[#FF6B6B] transition-colors">rafijahinn@gmail.com</a>
-                <a href="https://sites.google.com/view/rafi-jahin/" target="_blank" class="text-gray-500 hover:text-[#FF6B6B] transition-colors">Portfolio</a>
-                <a href="https://www.linkedin.com/in/rafi-jahin/" target="_blank" class="text-gray-500 hover:text-[#FF6B6B] transition-colors">LinkedIn</a>
-            </div>
-        </header>
-
-        <section id="metrics" class="mb-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-[#00A896]">Impact at a Glance</h2>
-                <p class="mt-2 text-[#3A506B]">A snapshot of my professional contributions and their scale.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#02C39A]">
-                    <p class="text-4xl font-bold text-[#3A506B]">185,000+</p>
-                    <p class="text-[#3A506B] mt-2">People with Improved Healthcare Access</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#FF6B6B]">
-                    <p class="text-4xl font-bold text-[#3A506B]">460+</p>
-                    <p class="text-[#3A506B] mt-2">Documents & Interviews Processed with AI</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#02C39A]">
-                    <p class="text-4xl font-bold text-[#3A506B]">40%</p>
-                    <p class="text-[#3A506B] mt-2">Reduction in Data Processing Time</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#FF6B6B]">
-                    <p class="text-4xl font-bold text-[#3A506B]">1,350+</p>
-                    <p class="text-[#3A506B] mt-2">Paramedics Trained via E-Learning System</p>
-                </div>
-            </div>
-        </section>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 UNFPA Bangladesh CP10 Detailed Achievement Report</h1>
+            <p>Target Achievement by Theme with Indicator Details (December 2024)</p>
+        </div>
         
-        <section id="my-approach" class="mb-16 bg-white p-8 rounded-lg shadow-sm">
-             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-[#00A896]">My Approach</h2>
-                <p class="mt-2 max-w-2xl mx-auto text-[#3A506B]">I believe technology is a powerful lever for equity and social impact. My work is guided by a commitment to creating solutions that are not only innovative but also inclusive and sustainable.</p>
+        <div class="summary-cards">
+            <div class="summary-card total">
+                <div class="summary-number" style="color: #667eea;">25</div>
+                <div class="summary-label">Total Indicators</div>
             </div>
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
-                <div>
-                    <div class="text-4xl mb-3">👥</div>
-                    <h3 class="text-xl font-bold text-[#3A506B] mb-2">Human-Centered by Design</h3>
-                    <p class="text-[#3A506B]">Building solutions that are intuitive, accessible, and directly address the needs of communities, especially those at the margins.</p>
-                </div>
-                <div>
-                    <div class="text-4xl mb-3">📈</div>
-                    <h3 class="text-xl font-bold text-[#3A506B] mb-2">Evidence-Driven Strategy</h3>
-                    <p class="text-[#3A506B]">Leveraging data and AI not just for efficiency, but to uncover deep insights that lead to more effective and sustainable development programs.</p>
-                </div>
-                <div>
-                    <div class="text-4xl mb-3">🤝</div>
-                    <h3 class="text-xl font-bold text-[#3A506B] mb-2">Collaborative Scaling</h3>
-                    <p class="text-[#3A506B]">Fostering strong partnerships across sectors to ensure that innovative solutions can grow from a pilot to a national standard, creating lasting change.</p>
-                </div>
+            <div class="summary-card achieved">
+                <div class="summary-number" style="color: #10b981;">18</div>
+                <div class="summary-label">Fully Achieved (72%)</div>
             </div>
-        </section>
-
-        <section id="experience" class="mb-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-[#00A896]">Professional Experience</h2>
-                <p class="mt-2 text-[#3A506B]">I leverage technology to solve complex challenges in international development. Select a role to see how.</p>
+            <div class="summary-card progress">
+                <div class="summary-number" style="color: #f59e0b;">4</div>
+                <div class="summary-label">In Progress (16%)</div>
             </div>
-            <div class="max-w-4xl mx-auto">
-                <div class="mb-6 border-b border-gray-200">
-                    <nav class="-mb-px flex space-x-6" aria-label="Tabs">
-                        <button class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300 tab-active" data-tab="unfpa">UNFPA</button>
-                        <button class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300" data-tab="swisscontact">Swisscontact</button>
-                        <button class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300" data-tab="gain">GAIN</button>
-                    </nav>
-                </div>
-                <div id="tab-content" class="bg-white p-6 rounded-lg">
-                    <div class="tab-pane" id="unfpa">
-                        <h3 class="text-xl font-bold text-[#3A506B]">National Young & Emerging Evaluator</h3>
-                        <p class="text-sm text-gray-500 mb-4">Feb 2025 – Present</p>
-                        <ul class="space-y-3 text-[#3A506B] list-disc list-inside">
-                            <li>Built a pioneering AI-assisted analytical workflow (NotebookLM & Gemini) to process over 300 program documents and 160 stakeholder interviews, enhancing the rigor of the 10th Country Programme Evaluation.</li>
-                            <li>Authored core chapters on Findings, Conclusions, and Recommendations for the Final Evaluation Report, directly influencing strategic planning.</li>
-                            <li>Produced interactive Power BI dashboards to translate complex evaluation data into actionable insights for high-level management.</li>
-                            <li>Led team training on AI tools for qualitative analysis, boosting team productivity and technical capacity.</li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane hidden" id="swisscontact">
-                        <h3 class="text-xl font-bold text-[#3A506B]">Officer, Partnership & Innovation</h3>
-                        <p class="text-sm text-gray-500 mb-4">Nov 2021 – Aug 2024</p>
-                        <ul class="space-y-3 text-[#3A506B] list-disc list-inside">
-                            <li>Led the product lifecycle for Bangladesh’s first open-source, mobile-optimized Moodle LMS for community paramedics, designed for low-bandwidth areas to serve over 30,000 users.</li>
-                            <li>Managed platform adoption across 10 institutes, onboarding 500+ students and 50+ faculty, setting a new national standard for blended learning in vocational healthcare.</li>
-                            <li>Scaled the e-learning system to train over 1,350 paramedics (60% women), directly improving healthcare access for more than 185,000 people.</li>
-                             <li>Built strategic coalitions across public and private sectors to ensure the long-term sustainability and market integration of the e-learning ecosystem.</li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane hidden" id="gain">
-                        <h3 class="text-xl font-bold text-[#3A506B]">Project Assistant, Innovation & Supply Chain</h3>
-                        <p class="text-sm text-gray-500 mb-4">Aug 2024 – Feb 2025</p>
-                        <ul class="space-y-3 text-[#3A506B] list-disc list-inside">
-                             <li>Supported digital innovation in agricultural supply chains by implementing a blockchain-based dashboard and QR code traceability system.</li>
-                             <li>Analyzed data from over 1,500 farmers to develop predictive analytics models for supply chain optimization.</li>
-                             <li>Coordinated youth entrepreneurship initiatives, supporting the launch of more than 30 new small businesses in the agricultural sector.</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="summary-card not-achieved">
+                <div class="summary-number" style="color: #ef4444;">2</div>
+                <div class="summary-label">Not Achieved (8%)</div>
             </div>
-        </section>
-
-        <section id="publications" class="mb-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-[#00A896]">Publications & Media</h2>
-                <p class="mt-2 text-[#3A506B]">My work and insights featured in various publications.</p>
+            <div class="summary-card" style="border-top-color: #6366f1;">
+                <div class="summary-number" style="color: #6366f1;">1</div>
+                <div class="summary-label">Baseline Only</div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                 <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">Job Fair Connects Paramedics with Employers</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">An article covering a job fair in Sylhet organized to connect trained community paramedics with potential healthcare employers.</p>
-                    <a href="https://www.swisscontact.org/en/news/job-fair-in-sylhet-connects-community-paramedics-with-employers" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
+        </div>
+        
+        <div class="full-width-section">
+            <h2>📋 Detailed Indicator Achievement by Theme</h2>
+            
+            <!-- SRH Theme -->
+            <div class="theme-detail srh">
+                <div class="theme-title">
+                    <span>🏥 Sexual & Reproductive Health (SRH)</span>
+                    <span class="theme-summary">9 indicators: 8 Achieved (89%), 1 In Progress (11%)</span>
                 </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">e-Learning in Paramedic Education (Video)</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">A video feature showcasing the impact and implementation of the e-learning platform for community paramedic training in Bangladesh.</p>
-                    <a href="https://www.youtube.com/watch?v=4ZvAVU-j8W8" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Watch Video →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">The Future of Training: e-Learning Platform</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">Discusses the development of the e-learning platform for the community paramedic curriculum, highlighting its forward-looking approach.</p>
-                    <a href="https://www.swisscontact.org/en/news/into-the-future-of-training-an-e-learning-platform-for-community-paramedic-curriculum" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">e-Learning Platform Goes Open Source</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">Announcing that the e-learning platform for community paramedic training has been made open-source to broaden its impact.</p>
-                    <a href="https://www.swisscontact.org/en/news/the-e-learning-platform-for-the-community-paramedic-training-is-now-open-source" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">Healthcare Career Fair in Rangpur (Video)</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">Video covering a career fair for healthcare workers in Rangpur, organized with 20 healthcare-providing organizations.</p>
-                    <a href="https://www.facebook.com/shomvobBD/videos/%E0%A7%A8%E0%A7%A6-%E0%A6%B8%E0%A7%8D%E0%A6%AC%E0%A6%BE%E0%A6%B8%E0%A7%8D%E0%A6%A5%E0%A6%B8%E0%A7%87%E0%A6%AC%E0%A6%BE-%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%A7%E0%A6%BE%E0%A6%A8%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%80-%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%A5%E0%A6%BE-%E0%A6%A8%E0%A6%BF%E0%A7%9F%E0%A7%87-%E0%A6%86%E0%A7%9F%E0%A7%8B%E0%A6%9C%E0%A6%BF%E0%A6%A4-%E0%A6%B0%E0%A6%82%E0%A6%AA%E0%A7%81%E0%A6%B0%E0%A7%87-%E0%A6%B8%E0%A7%8D%E0%A6%AC%E0%A6%BE%E0%A6%B8%E0%A7%8D%E0%A6%A5%E0%A6%95%E0%A6%B0%E0%A7%8D%E0%A6%AE%E0%A7%80%E0%A6%B0-%E0%A6%95%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A7%9F%E0%A6%BE%E0%A6%B0-%E0%A6%AE%E0%A7%87%E0%A6%B2%E0%A6%BE/1530961021139389/" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Watch Video →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">Paramedic Training Now Interactively Digitized</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">An article on the digitization of the CP training curriculum, making it more interactive and accessible for students nationwide.</p>
-                    <a href="https://www.swisscontact.org/en/news/the-community-paramedic-cp-training-is-now-interactively-digitized" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">Teachers Trained on Astha e-Learning Platform</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">News about a training session for teachers to effectively use the Astha e-learning platform for their students.</p>
-                    <a href="https://www.swisscontact.org/en/news/teachers-receive-training-on-e-learning-platform-astha" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
-                </div>
-                <div class="publication-card p-6 rounded-lg shadow-sm flex flex-col">
-                    <h3 class="text-lg font-bold text-[#3A506B] mb-2 flex-grow">Astha Takes e-Learning to the Next Level</h3>
-                    <p class="text-sm text-gray-600 mb-4 flex-grow">An update on the advancements of the Astha platform, enhancing its interactive features for a better learning experience.</p>
-                    <a href="https://www.swisscontact.org/en/news/astha-takes-interactive-e-learning-to-its-next-level" target="_blank" class="text-[#FF6B6B] font-semibold hover:underline self-start">Read More →</a>
-                </div>
+                
+                <table class="indicators-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Type</th>
+                            <th style="width: 35%;">Indicator</th>
+                            <th style="width: 20%;">Achievement (2024)</th>
+                            <th style="width: 15%;">Target (2024/2026)</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 15%;">% Achievement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>1.1 Maternal Mortality Ratio</strong></td>
+                            <td class="achievement-value">136/100,000</td>
+                            <td><div class="target-info">Target 2024: 110<br>Target 2026: 100</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">✓ On track</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>1.2 Skilled Birth Attendance</strong></td>
+                            <td class="achievement-value">69.8% (2022 DHS)</td>
+                            <td><div class="target-info">Target 2026: 72%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">97% of 2026 target</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>1.3 FP Need Satisfied</strong></td>
+                            <td class="achievement-value">73.9% (2022 DHS)</td>
+                            <td><div class="target-info">Target 2024: 79.5%<br>Target 2026: 80%</div></td>
+                            <td><span class="status-pill progress">Progress</span></td>
+                            <td class="achievement-value">80% (Declining)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.1.1 National FP Strategy</strong></td>
+                            <td class="achievement-value">Strategy endorsed + SOP developed</td>
+                            <td><div class="target-info">Final costed plan</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.1.2 MISP Integration</strong></td>
+                            <td class="achievement-value">Implementation guideline + costed plan</td>
+                            <td><div class="target-info">Scaled up by MoHFW</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.1.3 SRH Indicators in MIS</strong></td>
+                            <td class="achievement-value">8 of 14 indicators integrated</td>
+                            <td><div class="target-info">All target districts</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">57% (ongoing)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.2.1 Midwifery-Led Care</strong></td>
+                            <td class="achievement-value">73% (116/158 UHCs)</td>
+                            <td><div class="target-info">Target 2024: 60%<br>Target 2026: 73%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">122% (2026 goal met)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.2.2 Post-Partum & Post-Abortion FP</strong></td>
+                            <td class="achievement-value">50.6% (80/158 UHCs)</td>
+                            <td><div class="target-info">Target 2024: 43%<br>Target 2026: 53%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">118% of 2024 target</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>1.2.3 GBV Clinical Support</strong></td>
+                            <td class="achievement-value">30% (53/179 facilities)</td>
+                            <td><div class="target-info">Target 2024: 30%<br>Target 2026: 43%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% of 2024 target</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </section>
-
-
-        <section id="skills" class="mb-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-[#00A896]">Core Competencies</h2>
-                <p class="mt-2 text-[#3A506B]">A multi-faceted skill set to drive projects from concept to impact.</p>
-            </div>
-            <div class="chart-container">
-                <canvas id="skillsChart"></canvas>
-            </div>
-        </section>
-
-        <section id="timeline">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-[#00A896]">Career Journey</h2>
-                <p class="mt-2 text-[#3A506B]">My professional path in technology and development.</p>
-            </div>
-            <div class="relative max-w-2xl mx-auto">
-                <div class="absolute left-1/2 w-0.5 h-full bg-gray-200"></div>
-                <div class="relative mb-8 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-10 bg-gradient-to-br from-[#00A896] to-[#02C39A] text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg">●</div>
-                    <div class="w-5/12 text-left pl-8">
-                        <p class="font-bold text-[#3A506B]">UNFPA</p>
-                        <p class="text-sm text-gray-600">2025 - Present</p>
-                    </div>
+            
+            <!-- A&Y Theme -->
+            <div class="theme-detail ay">
+                <div class="theme-title">
+                    <span>👥 Adolescents & Youth (A&Y)</span>
+                    <span class="theme-summary">7 indicators: 4 Achieved (57%), 1 In Progress (14%), 2 Not Achieved (29%)</span>
                 </div>
-                <div class="relative mb-8 flex justify-between items-center w-full">
-                    <div class="w-5/12 text-right pr-8">
-                        <p class="font-bold text-[#3A506B]">GAIN</p>
-                        <p class="text-sm text-gray-600">2024 - 2025</p>
-                    </div>
-                     <div class="z-10 bg-gradient-to-br from-[#00A896] to-[#02C39A] text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg">●</div>
-                    <div class="w-5/12"></div>
-                </div>
-                <div class="relative mb-8 flex justify-between items-center w-full">
-                    <div class="w-5/12"></div>
-                    <div class="z-10 bg-gradient-to-br from-[#00A896] to-[#02C39A] text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg">●</div>
-                    <div class="w-5/12 text-left pl-8">
-                        <p class="font-bold text-[#3A506B]">Swisscontact</p>
-                        <p class="text-sm text-gray-600">2021 - 2024</p>
-                    </div>
-                </div>
-                 <div class="relative mb-8 flex justify-between items-center w-full">
-                    <div class="w-5/12 text-right pr-8">
-                        <p class="font-bold text-[#3A506B]">B.Sc. in IT</p>
-                        <p class="text-sm text-gray-600">2016 - 2020</p>
-                    </div>
-                     <div class="z-10 bg-gradient-to-br from-[#00A896] to-[#02C39A] text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg">●</div>
-                    <div class="w-5/12"></div>
-                </div>
+                
+                <table class="indicators-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Type</th>
+                            <th style="width: 35%;">Indicator</th>
+                            <th style="width: 20%;">Achievement (2024)</th>
+                            <th style="width: 15%;">Target (2024/2026)</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 15%;">% Achievement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>2.1 Adolescent Fertility Rate</strong></td>
+                            <td class="achievement-value">73/1000 (SVRS)<br>92/1000 (DHS 2022)</td>
+                            <td><div class="target-info">Target 2026: 60/1000</div></td>
+                            <td><span class="status-pill not-achieved">Not Achieved</span></td>
+                            <td class="achievement-value">❌ Worsened</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>2.2 Child Marriage (before 18)</strong></td>
+                            <td class="achievement-value">40% (SVRS 2023)<br>50.1% (DHS 2022)</td>
+                            <td><div class="target-info">Target 2024: 32%<br>Target 2026: 30%</div></td>
+                            <td><span class="status-pill not-achieved">Not Achieved</span></td>
+                            <td class="achievement-value">❌ Minimal progress</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>2.1.1 CLSE in Curriculum</strong></td>
+                            <td class="achievement-value">Grades 10-11 endorsed</td>
+                            <td><div class="target-info">Grades 6-12</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">⚠️ Cancelled by new govt</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>2.1.2 LSE Institutions</strong></td>
+                            <td class="achievement-value">40 institutions</td>
+                            <td><div class="target-info">Target 2024: 40<br>Target 2026: 1944</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% of 2024 target</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>2.1.3 Youth Platform Engagement</strong></td>
+                            <td class="achievement-value">5% (4 of 75 members)</td>
+                            <td><div class="target-info">Target 2024: 5%<br>Target 2026: 5%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>2.2.1 Girls Receiving LSE</strong></td>
+                            <td class="achievement-value">27,880 girls</td>
+                            <td><div class="target-info">Target 2024: 4,300<br>Target 2026: 20,000</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">648% ⭐ Exceptional</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>2.2.2 District Plans</strong></td>
+                            <td class="achievement-value">4 districts (plans approved)</td>
+                            <td><div class="target-info">Target 2024: 5<br>Target 2026: 8</div></td>
+                            <td><span class="status-pill progress">Progress</span></td>
+                            <td class="achievement-value">80% (Political unrest)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </section>
-
-    </main>
-
-    <footer class="text-center py-8 border-t border-gray-200 mt-16">
-        <p class="text-gray-500 text-sm">Rafi Jahin | Dhaka, Bangladesh</p>
-    </footer>
-
+            
+            <!-- Gender Theme -->
+            <div class="theme-detail gender">
+                <div class="theme-title">
+                    <span>⚖️ Gender Equality & Women's Empowerment</span>
+                    <span class="theme-summary">5 indicators: 3 Achieved (60%), 2 In Progress (40%)</span>
+                </div>
+                
+                <table class="indicators-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Type</th>
+                            <th style="width: 35%;">Indicator</th>
+                            <th style="width: 20%;">Achievement (2024)</th>
+                            <th style="width: 15%;">Target (2024/2026)</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 15%;">% Achievement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>3.1 Violence Against Women (SDG 5.2.1)</strong></td>
+                            <td class="achievement-value">22.8% (VAW 2024)</td>
+                            <td><div class="target-info">Target 2024: 27%<br>Target 2026: 20%</div></td>
+                            <td><span class="status-pill progress">Progress</span></td>
+                            <td class="achievement-value">80% (Ahead of target)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>3.1.1 Knowledge of GBV</strong></td>
+                            <td class="achievement-value">15.9% baseline (2023)</td>
+                            <td><div class="target-info">Target 2026: 28.6%<br>(80% increase)</div></td>
+                            <td><span class="status-pill progress">Progress</span></td>
+                            <td class="achievement-value">80% (Baseline year)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>3.2.1 Laws & Policies on Gender Equality</strong></td>
+                            <td class="achievement-value">Recommendations shared</td>
+                            <td><div class="target-info">Target 2026: 3 laws</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">✓ On track</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>3.2.2 National GBV Coordination Mechanism</strong></td>
+                            <td class="achievement-value">ToR developed</td>
+                            <td><div class="target-info">Target 2025: Fully operational</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">✓ On track</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>3.2.3 GBV Response Facilities</strong></td>
+                            <td class="achievement-value">69 facilities</td>
+                            <td><div class="target-info">Target 2024: 69<br>Target 2026: 150</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% of 2024 target</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- PD Theme -->
+            <div class="theme-detail pd">
+                <div class="theme-title">
+                    <span>📊 Population Dynamics (PD)</span>
+                    <span class="theme-summary">4 indicators: 4 Achieved (100%) ⭐</span>
+                </div>
+                
+                <table class="indicators-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Type</th>
+                            <th style="width: 35%;">Indicator</th>
+                            <th style="width: 20%;">Achievement (2024)</th>
+                            <th style="width: 15%;">Target (2024/2026)</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 15%;">% Achievement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="indicator-type-badge outcome">OUT</span></td>
+                            <td><strong>4.1 SDG Indicators with Disaggregation</strong></td>
+                            <td class="achievement-value">81.25% (13 of 16)</td>
+                            <td><div class="target-info">Target 2026: 75%</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">108% (Exceeded)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>4.1.1 Analytical Reports & Policy Briefs</strong></td>
+                            <td class="achievement-value">3 reports (7 cumulative)</td>
+                            <td><div class="target-info">Target 2024: 3<br>Target 2026: 10</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% of 2024 target</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>4.1.2 Development Plans</strong></td>
+                            <td class="achievement-value">1 plan approved</td>
+                            <td><div class="target-info">Target 2024: 1<br>Target 2026: 2</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% (Pop Policy 2023)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="indicator-type-badge output">OUT</span></td>
+                            <td><strong>4.1.3 Policy Recommendations</strong></td>
+                            <td class="achievement-value">1 recommendation (3 cumulative)</td>
+                            <td><div class="target-info">Target 2024: 1<br>Target 2026: 8</div></td>
+                            <td><span class="status-pill achieved">Achieved</span></td>
+                            <td class="achievement-value">100% (MMR & FP)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabs = document.querySelectorAll('.tab');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(item => item.classList.remove('tab-active'));
-                    tab.classList.add('tab-active');
-
-                    const target = tab.getAttribute('data-tab');
-                    tabPanes.forEach(pane => {
-                        if (pane.id === target) {
-                            pane.classList.remove('hidden');
-                        } else {
-                            pane.classList.add('hidden');
-                        }
-                    });
-                });
-            });
-
-            const ctx = document.getElementById('skillsChart').getContext('2d');
-            const skillsChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['AI & Data Analysis', 'Evaluation & M&E', 'Product Management', 'Partnership Building', 'Data Visualization', 'Project Implementation'],
-                    datasets: [{
-                        label: 'Skill Level',
-                        data: [5, 5, 5, 5, 5, 5],
-                        backgroundColor: 'rgba(0, 168, 150, 0.2)',
-                        borderColor: 'rgba(2, 195, 154, 1)',
-                        pointBackgroundColor: 'rgba(2, 195, 154, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(2, 195, 154, 1)'
-                    }]
+        // Theme Achievement Chart
+        const ctxTheme = document.getElementById('themeChart').getContext('2d');
+        const themeData = {
+            labels: ['SRH', 'A&Y', 'Gender', 'PD'],
+            datasets: [
+                {
+                    label: 'Fully Achieved',
+                    data: [8, 4, 3, 4],
+                    backgroundColor: '#10b981',
+                    borderColor: '#059669',
+                    borderWidth: 2
                 },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: 'rgba(58, 80, 107, 0.2)'
-                            },
-                            grid: {
-                                color: 'rgba(58, 80, 107, 0.2)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 14,
-                                },
-                                color: '#3A506B'
-                            },
-                            ticks: {
-                                backdropColor: '#FFFBF5',
-                                color: '#3A506B',
-                                stepSize: 1,
-                                max: 5,
-                                min: 0
-                            }
+                {
+                    label: 'In Progress (80%)',
+                    data: [1, 1, 2, 0],
+                    backgroundColor: '#f59e0b',
+                    borderColor: '#d97706',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Not Achieved',
+                    data: [0, 2, 0, 0],
+                    backgroundColor: '#ef4444',
+                    borderColor: '#dc2626',
+                    borderWidth: 2
+                }
+            ]
+        };
+        
+        new Chart(ctxTheme, {
+            type: 'bar',
+            data: themeData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, weight: '600' },
+                            padding: 15,
+                            usePointStyle: true
                         }
                     },
-                    plugins: {
-                        legend: {
-                            display: false
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                const totals = [9, 7, 5, 4];
+                                const percentage = ((context.parsed.y / totals[context.dataIndex]) * 100).toFixed(1);
+                                return context.dataset.label + ': ' + context.parsed.y + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 13, weight: '600' },
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1,
+                            font: { size: 12, weight: '600' },
+                            color: '#333'
+                        },
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        title: {
+                            display: true,
+                            text: 'Number of Indicators',
+                            font: { size: 13, weight: 'bold' },
+                            color: '#333'
                         }
                     }
                 }
-            });
+            }
         });
     </script>
 </body>
 </html>
-
+        
+        // Achievement Rate Chart
+        const ctxPercentage = document.getElementById('percentageChart').getContext('2d');
+        const percentageData = {
+            labels: ['SRH', 'A&Y', 'Gender', 'PD'],
+            datasets: [
+                {
+                    label: 'Achievement Rate',
+                    data: [89, 57, 60, 100],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(59, 130, 246, 0.8)'
+                    ],
+                    borderColor: [
+                        '#10b981',
+                        '#f59e0b',
+                        '#8b5cf6',
+                        '#3b82f6'
+                    ],
+                    borderWidth: 3
+                }
+            ]
+        };
+        
+        new Chart(ctxPercentage, {
+            type: 'bar',
+            data: percentageData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return 'Achievement Rate: ' + context.parsed.y + '%';
+                            },
+                            afterLabel: function(context) {
+                                const details = [
+                                    'SRH: 8/9 fully achieved',
+                                    'A&Y: 4/7 fully achieved',
+                                    'Gender: 3/5 fully achieved',
+                                    'PD: 4/4 fully achieved'
+                                ];
+                                return details[context.dataIndex];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 13, weight: '600' },
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20,
+                            font: { size: 12, weight: '600' },
+                            color: '#333',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        title: {
+                            display: true,
+                            text: 'Achievement Rate (%)',
+                            font: { size: 13, weight: 'bold' },
+                            color: '#333'
+                        }
+                    }
+                }
+            }
+        });
